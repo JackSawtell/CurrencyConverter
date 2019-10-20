@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>AJAX pull XML Example</title>
+      <style>
+         textarea {
+         outline: none;
+         resize: none;
+         width: 400px;
+         height: 400px;
+         }
+      </style>
+      <script>
+         var url;
+         
+         // do AJAX - it ain't rocket science
+         function loadDoc(url) {
+         	var xhttp = new XMLHttpRequest();
+         	xhttp.onreadystatechange = function() {
+         	if (this.readyState == 4 && this.status == 200) {
+         		document.getElementById("xml_text").innerHTML = this.responseText;
+         		console.log(this.responseText);
+         	}
+         	};
+         	xhttp.open("GET", url, true);
+         	xhttp.send();
+         }
+         
+         function sendRequest(val) {
+         	/* we would extend this function and
+         	   attach value of form input fields here
+         	   but for now.. */
+         	url = 'curr' + val + '.php';
+         	loadDoc(url);
+         }
+             
+      </script>
+   </head>
+   <body>
+      <input type="radio" id="post" onclick='sendRequest("Post")'> Post
+      <input type="radio" id="put" onclick='sendRequest("Put")'> Put
+      <input type="radio" id="del" onclick='sendRequest("Del")'> Delete
+      <p/>
+         <textarea id="xml_text"></textarea>
+   </body>
+</html>
